@@ -1,43 +1,46 @@
+
 /* Union Find木 */
-/* 合同条件を定められる木 */
+/* グループ分けする木 */
+class UnionFind{
+private:
+	vector<int> rank; // 木の深さ
+	int count_;
 
-const int MAX_N = /* TODO */;
-class UF{
 public:
+	vector<int> data; // 親>0, サイズ<0
 
-	int par[MAX_N]; // 親
-	int rank[MAX_N]; // 木の深さ 
+	UnionFind(int n):data(n,-1), rank(n,0), count_(n){}
 
-	uni(int n){
-		for(int i = 0; i < n; i++){
-			par[i] = i;
-			rank[i] = 0;
-		}
-	}
-
-	int find(int x){
-		if (par[x] == x){
-			return x;
-		} else {
-			return par[x] = find(par[x]);
-		}
+	int root(int x){
+		return data[x] < 0 ? x : data[x] = root(data[x]);
 	}
 
 	void unite(int x, int y){
-		x = find(x);
-		y = find(y);
+		x = root(x);
+		y = root(y);
 		if(x == y) return;
 
+		count_--;
 		if(rank[x] < rank[y]){
-			par[x] = y;
+			data[y] += data[x];
+			data[x] = y;
 		} else {
-			par[y] = x;
+			data[x] += data[y];
+			data[y] = x;
 			if(rank[x] == rank[y])
 				rank[x]++;
 		}
 	}
 
 	bool same(int x, int y){
-		return find(x) == find(y);
+		return root(x) == root(y);
+	}
+
+	int size(int x){
+		return -data[root(x)];
+	}
+
+	int groups(){
+		return count_;
 	}
 };
