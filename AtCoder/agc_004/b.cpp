@@ -1,0 +1,58 @@
+#include <iostream>
+#include <cstdio>
+#include <bitset>
+#include <queue>
+#include <stack>
+#include <vector>
+#include <list>
+#include <set>
+#include <map>
+#include <utility>
+#include <string>
+#include <algorithm>
+#include <cmath>
+#include <limits>
+
+using namespace std;
+using ll=long long;
+using vint=vector<int>;
+using pint=pair<int,int>;
+
+const double EPS = 1e-9;
+const int inf = numeric_limits<int>::max();
+
+#define rep(i,n) for(int i=0;i<int(n);++i)
+#define REP(i,a,b) for(int i=int(a);i<int(b);++i)
+#define SHOW(a) cout << #a << " = " << a << endl
+#define ARR(a,n) for(int i=0;i<int(n);++i) cout << #a << "[" << i << "]" << " = " << a[i] << endl
+
+void solve(){
+	const int MAX_N = 2000+5;
+	ll t[MAX_N] = {};
+	priority_queue<ll, std::vector<ll>, std::greater<ll> > q;
+
+	ll N, x, a[MAX_N]; cin >>N >>x; rep(i, N) cin >>a[i];
+
+	rep(i,N){
+		t[i] = a[i];
+	}
+
+	rep(i,N){
+		rep(j,N){
+			t[j] = min(t[j], a[(N + j - i) % N]);
+		}
+		//ARR(t, N);
+
+		ll sum = 0;
+		rep(j,N) sum += t[j];
+
+		q.push(i * x + sum);
+	}
+
+	cout << q.top() << endl;
+}
+
+int main(){
+	solve();
+	return 0;
+}
