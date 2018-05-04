@@ -22,45 +22,24 @@ const double EPS = 1e-9;
 const int inf = numeric_limits<int>::max();
 
 #define rep(i,n) for(int i=0;i<int(n);++i)
+#define rrep(i,n) for(int i=int(n-1);i>=0;--i)
 #define REP(i,a,b) for(int i=int(a);i<int(b);++i)
+#define RREP(i,a,b) for(int i=int(b-1);i>=int(a);--i)
 #define SHOW(a) cout << #a << " = " << a << endl
-#define ARR(a,i,n) for(int i=0;i<int(n);++i) cout << #a << "[" << i << "]" << " = " << a[i] << endl
+#define ARR(a,n) for(int i=0;i<int(n);++i) cout << #a << "[" << i << "]" << " = " << a[i] << endl
 
 void solve(){
-	int n,m;
-	cin >> n >> m;
-
-	bool r[13][13] = {false};
-
-	rep(i,m){
-    int t, u;
-		cin >> t >> u;
-    t--;u--;
-    r[t][u] = true;
-	}
-
-  int ans = 0;
-  for(int i = 0; i < (1 << n);i++){
-    int t = bitset<32>(i).count();
-    if(t <= ans)
-      continue;
-
-    for(int a = 0; a < n; a++){
-      for(int b = a+1; b < n; b++){
-        if(i & (1 << a) && i & (1 << b) && !r[a][b]){
-          goto dbr;
-        }
-      }
+  string s;
+  cin >> s;
+  for(char t : s){
+    if(t != 'a' && t != 'e' && t != 'i' && t!= 'o' && t != 'u'){
+      cout << t;
     }
-
-    ans = t;
-    dbr:;
   }
-
-  cout << ans << endl;
+  cout << endl;
 }
 
 int main(){
-	solve();
-	return 0;
+  solve();
+  return 0;
 }
