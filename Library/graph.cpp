@@ -44,3 +44,15 @@ public:
 		return count_;
 	}
 };
+
+
+
+/* ワーシャルフロイト */
+// N: Nodeの数
+const int NMAX = 100;
+int dist[NMAX][NMAX] = {};
+
+rep(i, N) rep(j, N) dist[i][j] = inf / 2;
+rep(i, N) dist[i][i] = 0;
+
+rep(k, N) rep(i, N) rep(j, N) dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
