@@ -13,3 +13,29 @@ std::vector<int> Eratosthenes(const int N){
   }
   return P;
 }
+
+
+// 素数判定
+bool IsPrime(int num){
+  if (num < 2) return false;
+  else if (num == 2) return true;
+  else if (num % 2 == 0) return false;
+
+  double sqrtNum = sqrt(num);
+  for (int i = 3; i <= sqrtNum; i += 2) if (num % i == 0) return false;
+  return true;
+}
+
+
+// 素因数分解
+map< ll, int > PrimeFactor(ll n) {
+  map< ll, int > ret;
+  for(ll i = 2; i * i <= n; i++){
+    while(n % i == 0){
+      ret[i]++;
+      n /= i;
+    }
+  }
+  if(n != 1) ret[n] = 1;
+  return ret;
+}
